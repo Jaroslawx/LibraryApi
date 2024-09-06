@@ -1,4 +1,5 @@
 ﻿using LibraryApi.Data;
+using LibraryApi.Mappers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryApi.Controllers;
@@ -10,7 +11,8 @@ public class BookController(ApplicationDbContext context) : ControllerBase
     [HttpGet]
     public IActionResult GetAll()
     {
-        var books = context.Books.ToList();
+        var books = context.Books.ToList()
+            .Select(s => s.ToBookDto());
 
         return Ok(books);
     }
@@ -25,6 +27,6 @@ public class BookController(ApplicationDbContext context) : ControllerBase
             return NotFound();
         }
 
-        return Ok(book);
+        return Ok(book.ToBookDto());
     }
 }
