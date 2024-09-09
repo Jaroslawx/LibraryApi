@@ -59,4 +59,21 @@ public class AuthorController (ApplicationDbContext context) : ControllerBase
 
         return Ok(authorModel.ToAuthorDto());
     }
+    
+    [HttpDelete]
+    [Route("{id}")]
+    public IActionResult Delete([FromRoute] int id)
+    {
+        var authorModel = context.Authors.FirstOrDefault(x => x.Id == id);
+
+        if (authorModel == null)
+        {
+            return NotFound();
+        }
+        
+        context.Authors.Remove(authorModel);
+        context.SaveChanges();
+
+        return NoContent();
+    }
 }
