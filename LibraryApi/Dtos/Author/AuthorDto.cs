@@ -1,6 +1,4 @@
-﻿using LibraryApi.Models;
-
-namespace LibraryApi.Dtos.Author;
+﻿namespace LibraryApi.Dtos.Author;
 
 public class AuthorDto
 {

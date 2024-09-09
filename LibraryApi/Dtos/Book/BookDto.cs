@@ -10,5 +10,5 @@ public class BookDto
     public BookGenre Genre { get; set; }
     public long AuthorId { get; set; }
     public Models.Author Author { get; set; }
-    public ICollection<Review> Reviews { get; set; }
+    public ICollection<Models.Review> Reviews { get; set; }
 }
