@@ -18,7 +18,7 @@ public class BookController(ApplicationDbContext context) : ControllerBase
     }
     
     [HttpGet("{id}")]
-    public IActionResult GetById([FromRoute] int id)
+    public IActionResult GetById([FromRoute] long id)
     {
         var book = context.Books.Find(id);
 
