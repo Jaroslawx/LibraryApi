@@ -9,6 +9,6 @@ public class BookDto
     public string Title { get; set; }
     public BookGenre Genre { get; set; }
     public long AuthorId { get; set; }
-    public Author Author { get; set; }
+    public Models.Author Author { get; set; }
     public ICollection<Review> Reviews { get; set; }
 }
