@@ -40,4 +40,23 @@ public class AuthorController (ApplicationDbContext context) : ControllerBase
         
         return CreatedAtAction(nameof(GetById), new { id = authorModel.Id }, authorModel.ToAuthorDto());
     }
+    
+    [HttpPut]
+    [Route("{id}")]
+    public IActionResult Update([FromRoute] int id, [FromBody] UpdateAuthorRequestDto updateDto)
+    {
+        var authorModel = context.Authors.FirstOrDefault(x => x.Id == id);
+
+        if (authorModel == null)
+        {
+            return NotFound();
+        }
+        
+        authorModel.FirstName = updateDto.FirstName;
+        authorModel.LastName = updateDto.LastName;
+        
+        context.SaveChanges();
+
+        return Ok(authorModel.ToAuthorDto());
+    }
 }
