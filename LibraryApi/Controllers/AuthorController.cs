@@ -18,7 +18,7 @@ public class AuthorController (ApplicationDbContext context) : ControllerBase
     }
     
     [HttpGet("{id}")]
-    public IActionResult GetById([FromRoute] long id)
+    public IActionResult GetById([FromRoute] int id)
     {
         var author = context.Authors.Find(id);
 
