@@ -1,4 +1,5 @@
 ﻿using LibraryApi.Data;
+using LibraryApi.Dtos.Author;
 using LibraryApi.Mappers;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,5 +29,15 @@ public class AuthorController (ApplicationDbContext context) : ControllerBase
         }
 
         return Ok(author.ToAuthorDto());
+    }
+    
+    [HttpPost]
+    public IActionResult Create([FromBody] CreateAuthorRequestDto authorDto)
+    {
+        var authorModel = authorDto.ToAuthorFromCreateDto();
+        context.Authors.Add(authorModel);
+        context.SaveChanges();
+        
+        return CreatedAtAction(nameof(GetById), new { id = authorModel.Id }, authorModel.ToAuthorDto());
     }
 }

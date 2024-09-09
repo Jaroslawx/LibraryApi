@@ -15,4 +15,13 @@ public static class AuthorMappers
             Books = author.Books
         };
     }
+    
+    public static Author ToAuthorFromCreateDto (this CreateAuthorRequestDto authorDto)
+    {
+        return new Author
+        {
+            FirstName = authorDto.FirstName,
+            LastName = authorDto.LastName,
+        };
+    }
 }
