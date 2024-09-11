@@ -2,6 +2,7 @@
 using LibraryApi.Dtos.Author;
 using LibraryApi.Mappers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibraryApi.Controllers;
 
@@ -10,18 +11,18 @@ namespace LibraryApi.Controllers;
 public class AuthorController (ApplicationDbContext context) : ControllerBase
 {
     [HttpGet]
-    public IActionResult GetAll()
+    public async Task<IActionResult> GetAll()
     {
-        var authors = context.Authors.ToList()
-            .Select(s => s.ToAuthorDto());
+        var authors = await context.Authors.ToListAsync();
+        var authorsDto = authors.Select(s => s.ToAuthorDto());
 
-        return Ok(authors);
+        return Ok(authorsDto);
     }
     
     [HttpGet("{id}")]
-    public IActionResult GetById([FromRoute] int id)
+    public async Task<IActionResult> GetById([FromRoute] int id)
     {
-        var author = context.Authors.Find(id);
+        var author = await context.Authors.FindAsync(id);
 
         if (author == null)
         {
@@ -32,20 +33,20 @@ public class AuthorController (ApplicationDbContext context) : ControllerBase
     }
     
     [HttpPost]
-    public IActionResult Create([FromBody] CreateAuthorRequestDto authorDto)
+    public async Task<IActionResult> Create([FromBody] CreateAuthorRequestDto authorDto)
     {
         var authorModel = authorDto.ToAuthorFromCreateDto();
-        context.Authors.Add(authorModel);
-        context.SaveChanges();
+        await context.Authors.AddAsync(authorModel);
+        await context.SaveChangesAsync();
         
         return CreatedAtAction(nameof(GetById), new { id = authorModel.Id }, authorModel.ToAuthorDto());
     }
     
     [HttpPut]
     [Route("{id}")]
-    public IActionResult Update([FromRoute] int id, [FromBody] UpdateAuthorRequestDto updateDto)
+    public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateAuthorRequestDto updateDto)
     {
-        var authorModel = context.Authors.FirstOrDefault(x => x.Id == id);
+        var authorModel = await context.Authors.FirstOrDefaultAsync(x => x.Id == id);
 
         if (authorModel == null)
         {
@@ -55,16 +56,16 @@ public class AuthorController (ApplicationDbContext context) : ControllerBase
         authorModel.FirstName = updateDto.FirstName;
         authorModel.LastName = updateDto.LastName;
         
-        context.SaveChanges();
+        await context.SaveChangesAsync();
 
         return Ok(authorModel.ToAuthorDto());
     }
     
     [HttpDelete]
     [Route("{id}")]
-    public IActionResult Delete([FromRoute] int id)
+    public async Task<IActionResult> Delete([FromRoute] int id)
     {
-        var authorModel = context.Authors.FirstOrDefault(x => x.Id == id);
+        var authorModel = await context.Authors.FirstOrDefaultAsync(x => x.Id == id);
 
         if (authorModel == null)
         {
@@ -72,7 +73,7 @@ public class AuthorController (ApplicationDbContext context) : ControllerBase
         }
         
         context.Authors.Remove(authorModel);
-        context.SaveChanges();
+        await context.SaveChangesAsync();
 
         return NoContent();
     }
