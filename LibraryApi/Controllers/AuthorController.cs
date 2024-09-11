@@ -1,5 +1,6 @@
 ﻿using LibraryApi.Data;
 using LibraryApi.Dtos.Author;
+using LibraryApi.Interfaces;
 using LibraryApi.Mappers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,12 +9,12 @@ namespace LibraryApi.Controllers;
 
 [Route("LibraryApi/author")]
 [ApiController]
-public class AuthorController (ApplicationDbContext context) : ControllerBase
+public class AuthorController (ApplicationDbContext context, IAuthorRepository authorRepo) : ControllerBase
 {
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var authors = await context.Authors.ToListAsync();
+        var authors = await authorRepo.GetAllAsync();
         var authorsDto = authors.Select(s => s.ToAuthorDto());
 
         return Ok(authorsDto);
@@ -22,7 +23,7 @@ public class AuthorController (ApplicationDbContext context) : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById([FromRoute] int id)
     {
-        var author = await context.Authors.FindAsync(id);
+        var author = await authorRepo.GetByIdAsync(id);
 
         if (author == null)
         {
@@ -36,8 +37,7 @@ public class AuthorController (ApplicationDbContext context) : ControllerBase
     public async Task<IActionResult> Create([FromBody] CreateAuthorRequestDto authorDto)
     {
         var authorModel = authorDto.ToAuthorFromCreateDto();
-        await context.Authors.AddAsync(authorModel);
-        await context.SaveChangesAsync();
+        await authorRepo.CreateAsync(authorModel);
         
         return CreatedAtAction(nameof(GetById), new { id = authorModel.Id }, authorModel.ToAuthorDto());
     }
@@ -46,17 +46,12 @@ public class AuthorController (ApplicationDbContext context) : ControllerBase
     [Route("{id}")]
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateAuthorRequestDto updateDto)
     {
-        var authorModel = await context.Authors.FirstOrDefaultAsync(x => x.Id == id);
+        var authorModel = await authorRepo.UpdateAsync(id, updateDto);
 
         if (authorModel == null)
         {
             return NotFound();
         }
-        
-        authorModel.FirstName = updateDto.FirstName;
-        authorModel.LastName = updateDto.LastName;
-        
-        await context.SaveChangesAsync();
 
         return Ok(authorModel.ToAuthorDto());
     }
@@ -65,15 +60,12 @@ public class AuthorController (ApplicationDbContext context) : ControllerBase
     [Route("{id}")]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
-        var authorModel = await context.Authors.FirstOrDefaultAsync(x => x.Id == id);
+        var authorModel = await authorRepo.DeleteAsync(id);
 
         if (authorModel == null)
         {
             return NotFound();
         }
-        
-        context.Authors.Remove(authorModel);
-        await context.SaveChangesAsync();
 
         return NoContent();
     }
