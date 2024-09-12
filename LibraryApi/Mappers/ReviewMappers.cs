@@ -15,4 +15,15 @@ public static class ReviewMappers
             Comment = review.Comment
         };
     }
+    
+    public static Review ToReviewFromCreateDto (this CreateReviewRequestDto reviewDto)
+    {
+        return new Review
+        {
+            BookId = reviewDto.BookId,
+            Reviewer = reviewDto.Reviewer,
+            Rating = reviewDto.Rating,
+            Comment = reviewDto.Comment
+        };
+    }
 }
