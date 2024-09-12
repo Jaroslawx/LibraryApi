@@ -17,4 +17,14 @@ public static class BookMappers
             Reviews = bookDtoModel.Reviews
         };
     }
+    
+    public static Book ToBookFromCreateDto (this CreateBookRequestDto bookDto)
+    {
+        return new Book
+        {
+            Title = bookDto.Title,
+            Genre = bookDto.Genre,
+            AuthorId = bookDto.AuthorId,
+        };
+    }
 }
