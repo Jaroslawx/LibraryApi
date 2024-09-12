@@ -9,7 +9,7 @@ namespace LibraryApi.Controllers;
 
 [Route("LibraryApi/author")]
 [ApiController]
-public class AuthorController (ApplicationDbContext context, IAuthorRepository authorRepo) : ControllerBase
+public class AuthorController (IAuthorRepository authorRepo) : ControllerBase
 {
     [HttpGet]
     public async Task<IActionResult> GetAll()
