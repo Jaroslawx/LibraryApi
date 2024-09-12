@@ -18,11 +18,11 @@ public class AuthorRepository (ApplicationDbContext context) : IAuthorRepository
         return await context.Authors.FindAsync(id);
     }
 
-    public async Task<Author> CreateAsync(Author authorModel)
+    public async Task<Author> CreateAsync(Author author)
     {
-        await context.Authors.AddAsync(authorModel);
+        await context.Authors.AddAsync(author);
         await context.SaveChangesAsync();
-        return authorModel;
+        return author;
     }
 
     public async Task<Author?> UpdateAsync(int id, UpdateAuthorRequestDto updateDto)
