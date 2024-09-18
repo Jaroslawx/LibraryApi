@@ -60,12 +60,14 @@ public class AuthorController (IAuthorRepository authorRepo) : ControllerBase
     [Route("{id}")]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
-        var authorModel = await authorRepo.DeleteAsync(id);
+        var authorModel = await authorRepo.GetByIdAsync(id);
 
         if (authorModel == null)
         {
             return NotFound();
         }
+        
+        await authorRepo.DeleteAsync(id);
 
         return NoContent();
     }

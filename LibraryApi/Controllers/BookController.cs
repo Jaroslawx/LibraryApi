@@ -1,4 +1,5 @@
 ﻿using LibraryApi.Data;
+using LibraryApi.Dtos.Book;
 using LibraryApi.Interfaces;
 using LibraryApi.Mappers;
 using Microsoft.AspNetCore.Mvc;
@@ -29,5 +30,44 @@ public class BookController(IBookRepository bookRepo) : ControllerBase
         }
 
         return Ok(book.ToBookDto());
+    }
+    
+    [HttpPost]
+    public async Task<IActionResult> Create([FromBody] CreateBookRequestDto bookDto)
+    {
+        var bookModel = bookDto.ToBookFromCreateDto();
+        await bookRepo.CreateAsync(bookModel);
+        
+        return CreatedAtAction(nameof(GetById), new { id = bookModel.Id }, bookModel.ToBookDto());
+    }
+    
+    [HttpPut]
+    [Route("{id}")]
+    public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateBookRequestDto updateDto)
+    {
+        var bookModel = await bookRepo.UpdateAsync(id, updateDto);
+
+        if (bookModel == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(bookModel.ToBookDto());
+    }
+    
+    [HttpDelete]
+    [Route("{id}")]
+    public async Task<IActionResult> Delete([FromRoute] int id)
+    {
+        var bookModel = await bookRepo.GetByIdAsync(id);
+
+        if (bookModel == null)
+        {
+            return NotFound();
+        }
+
+        await bookRepo.DeleteAsync(id);
+
+        return NoContent();
     }
 }
