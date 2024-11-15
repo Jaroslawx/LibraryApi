@@ -9,5 +9,5 @@ public class AuthorDto
     public string? LastName { get; set; }
     public DateTime? BirthDate { get; set; }
     public string? Biography { get; set; }
-    public List<Models.Book>? Books { get; set; }
+    public ICollection<Models.Book>? Books { get; set; }
 }
