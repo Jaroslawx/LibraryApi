@@ -11,10 +11,13 @@ public static class BookMappers
         {
             Id = bookDtoModel.Id,
             Title = bookDtoModel.Title,
-            Genre = bookDtoModel.Genre,
+            Subjects = bookDtoModel.Subjects,
+            PublishedDate = bookDtoModel.PublishedDate,
+            Description = bookDtoModel.Description,
             AuthorId = bookDtoModel.AuthorId,
             Author = bookDtoModel.Author,
-            Reviews = bookDtoModel.Reviews
+            Reviews = bookDtoModel.Reviews,
+            AverageRating = bookDtoModel.AverageRating
         };
     }
     
@@ -22,8 +25,11 @@ public static class BookMappers
     {
         return new Book
         {
+            BookKey = bookDto.BookKey,
             Title = bookDto.Title,
-            Genre = bookDto.Genre,
+            Subjects = bookDto.Subjects,
+            PublishedDate = bookDto.PublishedDate,
+            Description = bookDto.Description,
             AuthorId = bookDto.AuthorId,
         };
     }
