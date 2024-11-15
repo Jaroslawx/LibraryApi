@@ -11,8 +11,8 @@ public class Author
     public string AuthorKey { get; set; }
     
     [Required]
-    [StringLength(50, ErrorMessage = "Pen name can't be longer than 50 characters.")]
-    public string PenName { get; set; }
+    [StringLength(50, ErrorMessage = "Pseudonym can't be longer than 50 characters.")]
+    public string Pseudonym { get; set; }
     
     [StringLength(100, ErrorMessage = "First name can't be longer than 100 characters.")]
     public string? FirstName { get; set; }
@@ -25,5 +25,5 @@ public class Author
     [StringLength(500, ErrorMessage = "Biography can't be longer than 500 characters.")]
     public string? Biography { get; set; }
     
-    public ICollection<Book> Books { get; set; }
+    public ICollection<Book>? Books { get; set; }
 }
