@@ -6,7 +6,7 @@ namespace LibraryApi.Models;
 public class Review
 {
     [Key]
-    public int Id { get; set; }
+    public int Id { get; init; }
     [ForeignKey("Book")]
     public int BookId { get; set; }
     public Book? Book { get; set; }
