@@ -34,8 +34,11 @@ public class BookRepository (ApplicationDbContext context) : IBookRepository
             return null;
         }
         
+        bookModel.BookKey = updateDto.BookKey;
         bookModel.Title = updateDto.Title;
-        bookModel.Genre = updateDto.Genre;
+        bookModel.Subjects = updateDto.Subjects;
+        bookModel.PublishedDate = updateDto.PublishedDate;
+        bookModel.Description = updateDto.Description;
         bookModel.AuthorId = updateDto.AuthorId;
         
         await context.SaveChangesAsync();

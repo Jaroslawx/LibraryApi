@@ -34,8 +34,12 @@ public class AuthorRepository (ApplicationDbContext context) : IAuthorRepository
             return null;
         }
         
+        authorModel.AuthorKey = updateDto.AuthorKey;
+        authorModel.Pseudonym = updateDto.Pseudonym;
         authorModel.FirstName = updateDto.FirstName;
         authorModel.LastName = updateDto.LastName;
+        authorModel.BirthDate = updateDto.BirthDate;
+        authorModel.Biography = updateDto.Biography;
         
         await context.SaveChangesAsync();
         
