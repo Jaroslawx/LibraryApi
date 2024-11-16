@@ -10,4 +10,5 @@ public interface IBookRepository
     Task<Book> CreateAsync(Book book);
     Task<Book?> UpdateAsync(int id, UpdateBookRequestDto updateDto);
     Task<Book?> DeleteAsync(int id);
+    Task<Book?> AddToBookshelfAsync(int id, AddToBookshelfRequestDto addToBookshelfRequestDto);
 }

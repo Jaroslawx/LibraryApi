@@ -59,4 +59,28 @@ public class BookRepository (ApplicationDbContext context) : IBookRepository
         await context.SaveChangesAsync();
         return bookModel;
     }
+    
+    public async Task<Book?> AddToBookshelfAsync(int id, AddToBookshelfRequestDto addToBookshelfRequestDto)
+    {
+        var bookModel = await context.Books.FirstOrDefaultAsync(x => x.Id == id);
+        
+        if(bookModel == null)
+        {
+            return null;
+        }
+        
+        var userBook = new UserBook
+        {
+            BookId = bookModel.Id,
+            UserId = addToBookshelfRequestDto.UserId,
+            Status = addToBookshelfRequestDto.Status,
+            Note = addToBookshelfRequestDto.Note,
+            UpdateDate = DateTime.Now
+        };
+        
+        await context.UserBooks.AddAsync(userBook);
+        await context.SaveChangesAsync();
+        
+        return bookModel;
+    }
 }
