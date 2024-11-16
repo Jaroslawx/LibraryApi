@@ -1,7 +1,4 @@
-﻿using LibraryApi.Data.Enum;
-using LibraryApi.Models;
-
-namespace LibraryApi.Dtos.Book;
+﻿namespace LibraryApi.Dtos.Book;
 
 public class BookDto
 {
