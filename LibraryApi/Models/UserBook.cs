@@ -14,10 +14,12 @@ public class UserBook
     public Book? Book { get; set; }
     
     [Required]
-    public string UserId { get; set; }
+    public string? UserId { get; set; }
     
     [Required]
     public BookStatus Status { get; set; }
+    
+    public string? Note { get; set; }
     
     public DateTime? UpdateDate { get; set; }
     
