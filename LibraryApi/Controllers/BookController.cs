@@ -70,4 +70,19 @@ public class BookController(IBookRepository bookRepo) : ControllerBase
 
         return NoContent();
     }
+    
+    [HttpPost]
+    [Route("{id}")]
+    public async Task<IActionResult> AddToBookshelf([FromRoute] int id, [FromBody] AddToBookshelfRequestDto requestDto)
+    {
+        var bookModel = await bookRepo.AddToBookshelfAsync(id, requestDto);
+
+        if (bookModel == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(bookModel.ToBookDto());
+    }
+    
 }
