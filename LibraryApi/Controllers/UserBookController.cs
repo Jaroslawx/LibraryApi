@@ -16,4 +16,17 @@ public class UserBookController(IUserBookRepository userBookRepo) : ControllerBa
 
         return Ok(userBooksDto);
     }
+    
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetById([FromRoute] int id)
+    {
+        var userBook = await userBookRepo.GetByIdAsync(id);
+
+        if (userBook == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(userBook.ToUserBookDto());
+    }
 }

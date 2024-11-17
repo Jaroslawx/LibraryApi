@@ -11,4 +11,9 @@ public class UserBookRepository (ApplicationDbContext context) : IUserBookReposi
     {
         return await context.UserBooks.ToListAsync();
     }
+    
+    public async Task<UserBook?> GetByIdAsync(int id)
+    {
+        return await context.UserBooks.FirstOrDefaultAsync(f => f.Id == id);
+    }
 }
