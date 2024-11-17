@@ -21,7 +21,7 @@ public class UserBook
     
     public string? Note { get; set; }
     
-    public DateTime? LastUpdate { get; set; }
+    public DateTime? LastUpdated { get; set; }
     
     
 }

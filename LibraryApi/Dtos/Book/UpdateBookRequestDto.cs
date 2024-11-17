@@ -1,6 +1,4 @@
-﻿using LibraryApi.Data.Enum;
-
-namespace LibraryApi.Dtos.Book;
+﻿namespace LibraryApi.Dtos.Book;
 
 public class UpdateBookRequestDto
 {
