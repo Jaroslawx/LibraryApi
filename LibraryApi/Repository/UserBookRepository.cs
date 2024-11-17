@@ -35,4 +35,19 @@ public class UserBookRepository (ApplicationDbContext context) : IUserBookReposi
         
         return userBookModel;
     }
+    
+    public async Task<UserBook?> DeleteAsync(int id)
+    {
+        var userBook = await context.UserBooks.FirstOrDefaultAsync(f => f.Id == id);
+        
+        if (userBook == null)
+        {
+            return null;
+        }
+        
+        context.UserBooks.Remove(userBook);
+        await context.SaveChangesAsync();
+        
+        return userBook;
+    }
 }

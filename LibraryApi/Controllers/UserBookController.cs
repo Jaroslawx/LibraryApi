@@ -44,4 +44,20 @@ public class UserBookController(IUserBookRepository userBookRepo) : ControllerBa
 
         return Ok(userBookModel.ToUserBookDto());
     }
+    
+    [HttpDelete]
+    [Route("{id}")]
+    public async Task<IActionResult> Delete([FromRoute] int id)
+    {
+        var userBook = await userBookRepo.GetByIdAsync(id);
+
+        if (userBook == null)
+        {
+            return NotFound();
+        }
+
+        await userBookRepo.DeleteAsync(id);
+
+        return NoContent();
+    }
 }
