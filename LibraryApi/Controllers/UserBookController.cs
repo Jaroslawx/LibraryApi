@@ -1,4 +1,5 @@
-﻿using LibraryApi.Interfaces;
+﻿using LibraryApi.Dtos.UserBook;
+using LibraryApi.Interfaces;
 using LibraryApi.Mappers;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,5 +29,19 @@ public class UserBookController(IUserBookRepository userBookRepo) : ControllerBa
         }
 
         return Ok(userBook.ToUserBookDto());
+    }
+    
+    [HttpPut]
+    [Route("{id}")]
+    public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateUserBookRequestDto updateDto)
+    {
+        var userBookModel = await userBookRepo.UpdateAsync(id, updateDto);
+
+        if (userBookModel == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(userBookModel.ToUserBookDto());
     }
 }
