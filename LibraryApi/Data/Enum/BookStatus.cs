@@ -5,6 +5,7 @@ public enum BookStatus
     PlanToRead,
     CurrentlyReading,
     Completed,
+    OnHold,
     Dropped,
-    NeverRead
+    NotInterested,
 }
