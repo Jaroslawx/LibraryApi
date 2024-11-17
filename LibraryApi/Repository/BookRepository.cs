@@ -75,7 +75,7 @@ public class BookRepository (ApplicationDbContext context) : IBookRepository
             UserId = addToBookshelfRequestDto.UserId,
             Status = addToBookshelfRequestDto.Status,
             Note = addToBookshelfRequestDto.Note,
-            UpdateDate = DateTime.Now
+            LastUpdate = DateTime.Now
         };
         
         await context.UserBooks.AddAsync(userBook);

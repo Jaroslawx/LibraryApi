@@ -10,5 +10,5 @@ public class UserBookDto
     public string? UserId { get; set; }
     public BookStatus Status { get; set; }
     public string? Note { get; set; }
-    public DateTime? UpdateDate { get; set; }
+    public DateTime? LastUpdate { get; set; }
 }
