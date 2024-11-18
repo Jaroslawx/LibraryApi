@@ -34,7 +34,7 @@ public class BookRepository (ApplicationDbContext context) : IBookRepository
             return null;
         }
         
-        bookModel.BookKey = updateDto.BookKey;
+        bookModel.OLBookKey = updateDto.OLBookKey;
         bookModel.Title = updateDto.Title;
         bookModel.Subjects = updateDto.Subjects;
         bookModel.PublishedDate = updateDto.PublishedDate;

@@ -9,7 +9,7 @@ public class Book
     public int Id { get; init; }
 
     [Required]
-    public string BookKey { get; set; }
+    public string OLBookKey { get; set; }
 
     [StringLength(75, ErrorMessage = "Title can't be longer than 75 characters.")]
     public string? Title { get; set; }

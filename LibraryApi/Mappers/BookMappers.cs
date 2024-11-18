@@ -24,7 +24,7 @@ public static class BookMappers
     {
         return new Book
         {
-            BookKey = bookDto.BookKey,
+            OLBookKey = bookDto.OLBookKey,
             Title = bookDto.Title,
             Subjects = bookDto.Subjects,
             PublishedDate = bookDto.PublishedDate,

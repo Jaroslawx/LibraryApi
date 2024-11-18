@@ -4,7 +4,7 @@ namespace LibraryApi.Dtos.Book;
 
 public class CreateBookRequestDto
 {
-    public string BookKey { get; set; }
+    public string OLBookKey { get; set; }
     public string? Title { get; set; }
     public string[]? Subjects { get; set; }
     public DateTime? PublishedDate { get; set; }

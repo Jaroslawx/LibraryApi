@@ -8,7 +8,7 @@ public class Author
     public int Id { get; init; }
     
     [Required]
-    public string AuthorKey { get; set; }
+    public string OLAuthorKey { get; set; }
     
     [Required]
     [StringLength(50, ErrorMessage = "Pseudonym can't be longer than 50 characters.")]

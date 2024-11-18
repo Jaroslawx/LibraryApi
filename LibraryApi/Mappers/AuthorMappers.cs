@@ -10,7 +10,7 @@ public static class AuthorMappers
         return new AuthorDto
         {
             Id = author.Id,
-            AuthorKey = author.AuthorKey,
+            OLAuthorKey = author.OLAuthorKey,
             Pseudonym = author.Pseudonym,
             FirstName = author.FirstName,
             LastName = author.LastName,
@@ -24,7 +24,7 @@ public static class AuthorMappers
     {
         return new Author
         {
-            AuthorKey = authorDto.AuthorKey,
+            OLAuthorKey = authorDto.OLAuthorKey,
             Pseudonym = authorDto.Pseudonym,
             FirstName = authorDto.FirstName,
             LastName = authorDto.LastName,
