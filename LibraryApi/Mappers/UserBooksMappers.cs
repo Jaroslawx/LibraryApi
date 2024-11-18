@@ -15,6 +15,7 @@ public static class UserBooksMappers
             UserId = userBook.UserId,
             Status = userBook.Status,
             Note = userBook.Note,
+            Priority = userBook.Priority,
             LastUpdated = userBook.LastUpdated
         };
     }

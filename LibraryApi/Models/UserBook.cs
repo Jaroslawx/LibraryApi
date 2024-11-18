@@ -21,6 +21,8 @@ public class UserBook
     
     public string? Note { get; set; }
     
+    public Priority? Priority { get; set; }
+    
     public DateTime? LastUpdated { get; set; }
     
     

@@ -29,6 +29,7 @@ public class UserBookRepository (ApplicationDbContext context) : IUserBookReposi
         
         userBookModel.Status = updateDto.Status;
         userBookModel.Note = updateDto.Note;
+        userBookModel.Priority = updateDto.Priority;
         userBookModel.LastUpdated = DateTime.Now;
         
         await context.SaveChangesAsync();
