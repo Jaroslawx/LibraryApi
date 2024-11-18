@@ -20,7 +20,7 @@ public static class AuthorMappers
         };
     }
     
-    public static Author ToAuthorFromCreateDto (this CreateAuthorRequestDto authorDto)
+    public static Author ToAuthorFromCreate (this CreateAuthorDto authorDto)
     {
         return new Author
         {

@@ -16,11 +16,11 @@ public static class BookMappers
             Description = bookDtoModel.Description,
             AuthorId = bookDtoModel.AuthorId,
             Author = bookDtoModel.Author,
-            Reviews = bookDtoModel.Reviews.Select(r => r.ToReviewDto()).ToList(),
+            Reviews = bookDtoModel.Reviews!.Select(r => r.ToReviewDto()).ToList(),
         };
     }
     
-    public static Book ToBookFromCreateDto (this CreateBookRequestDto bookDto)
+    public static Book ToBookFromCreate (this CreateBookDto bookDto)
     {
         return new Book
         {

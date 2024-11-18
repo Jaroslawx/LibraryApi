@@ -2,7 +2,7 @@
 
 namespace LibraryApi.Dtos.Book;
 
-public class CreateBookRequestDto
+public class CreateBookDto
 {
     public string OLBookKey { get; set; }
     public string? Title { get; set; }

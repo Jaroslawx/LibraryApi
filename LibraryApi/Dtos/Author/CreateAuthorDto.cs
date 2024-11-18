@@ -1,6 +1,6 @@
 ﻿namespace LibraryApi.Dtos.Author;
 
-public class CreateAuthorRequestDto
+public class CreateAuthorDto
 {
     public string OLAuthorKey { get; set; }
     public string Pseudonym  { get; set; }

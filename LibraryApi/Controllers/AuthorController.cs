@@ -34,9 +34,9 @@ public class AuthorController (IAuthorRepository authorRepo) : ControllerBase
     }
     
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] CreateAuthorRequestDto authorDto)
+    public async Task<IActionResult> Create([FromBody] CreateAuthorDto authorDto)
     {
-        var authorModel = authorDto.ToAuthorFromCreateDto();
+        var authorModel = authorDto.ToAuthorFromCreate();
         await authorRepo.CreateAsync(authorModel);
         
         return CreatedAtAction(nameof(GetById), new { id = authorModel.Id }, authorModel.ToAuthorDto());

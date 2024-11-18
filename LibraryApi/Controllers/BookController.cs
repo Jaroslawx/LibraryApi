@@ -33,9 +33,9 @@ public class BookController(IBookRepository bookRepo) : ControllerBase
     }
     
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] CreateBookRequestDto bookDto)
+    public async Task<IActionResult> Create([FromBody] CreateBookDto bookDto)
     {
-        var bookModel = bookDto.ToBookFromCreateDto();
+        var bookModel = bookDto.ToBookFromCreate();
         await bookRepo.CreateAsync(bookModel);
         
         return CreatedAtAction(nameof(GetById), new { id = bookModel.Id }, bookModel.ToBookDto());
