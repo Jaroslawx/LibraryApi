@@ -10,12 +10,12 @@ public class BookRepository (ApplicationDbContext context) : IBookRepository
 {
     public async Task<List<Book>> GetAllAsync()
     {
-        return await context.Books.ToListAsync();
+        return await context.Books.Include(r => r.Reviews).ToListAsync();
     }
 
     public async Task<Book?> GetByIdAsync(int id)
     {
-        return await context.Books.FindAsync(id);
+        return await context.Books.Include(r => r.Reviews).FirstOrDefaultAsync(i => i.Id == id);
     }
 
     public async Task<Book> CreateAsync(Book book)
