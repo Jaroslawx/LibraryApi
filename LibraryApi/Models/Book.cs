@@ -25,7 +25,7 @@ public class Book
     public int AuthorId { get; set; }
     public Author? Author { get; set; }
     
-    public ICollection<Review>? Reviews { get; set; }
+    public List<Review>? Reviews { get; set; }
     
     [Range(0, 10, ErrorMessage = "Rating must be between 0 and 10.")]
     public decimal AverageRating
