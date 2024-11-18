@@ -16,8 +16,7 @@ public static class BookMappers
             Description = bookDtoModel.Description,
             AuthorId = bookDtoModel.AuthorId,
             Author = bookDtoModel.Author,
-            Reviews = bookDtoModel.Reviews,
-            AverageRating = bookDtoModel.AverageRating
+            Reviews = bookDtoModel.Reviews
         };
     }
     
