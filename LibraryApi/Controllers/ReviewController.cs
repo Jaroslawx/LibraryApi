@@ -46,4 +46,19 @@ public class ReviewController (IReviewRepository reviewRepo, IBookRepository boo
         
         return CreatedAtAction(nameof(GetById), new { id = reviewModel.Id }, reviewModel.ToReviewDto());
     }
+    
+    [HttpDelete]
+    [Route("{id}")]
+    public async Task<IActionResult> Delete([FromRoute] int id)
+    {
+        var reviewModel = await reviewRepo.DeleteAsync(id);
+
+        if (reviewModel == null)
+        {
+            return NotFound("Review does not exist.");
+        }
+
+        return Ok(reviewModel);
+    }
+    
 }
