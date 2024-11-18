@@ -9,4 +9,13 @@ public class ApplicationDbContext(DbContextOptions dbContextOptions) : DbContext
     public DbSet<Book> Books { get; set; }
     public DbSet<Review> Reviews { get; set; }
     public DbSet<UserBook> UserBooks { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<Book>()
+            .Property(b => b.AverageRating)
+            .HasPrecision(2, 2);
+    }
 }
