@@ -18,7 +18,19 @@ public class ApplicationDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-
+        
+        modelBuilder.Entity<Book>()
+            .HasOne(b => b.Author)
+            .WithMany(a => a.Books)
+            .HasForeignKey(b => b.AuthorId)
+            .OnDelete(DeleteBehavior.Cascade);
+        
+        modelBuilder.Entity<Review>()
+            .HasOne(r => r.Book)
+            .WithMany(b => b.Reviews)
+            .HasForeignKey(r => r.BookId)
+            .OnDelete(DeleteBehavior.Cascade);
+        
         modelBuilder.Entity<Book>()
             .Property(b => b.AverageRating)
             .HasPrecision(2, 2);
