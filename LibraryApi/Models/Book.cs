@@ -7,9 +7,8 @@ public class Book
 {
     [Key]
     public int Id { get; init; }
-
-    [Required]
-    public string OLBookKey { get; set; }
+    
+    public string? OlBookKey { get; set; }
 
     [StringLength(75, ErrorMessage = "Title can't be longer than 75 characters.")]
     public string? Title { get; set; }
@@ -22,7 +21,7 @@ public class Book
     public string? Description { get; set; }
 
     [ForeignKey("Author")]
-    public int AuthorId { get; set; }
+    public int? AuthorId { get; set; }
     public Author? Author { get; set; }
     
     public List<Review>? Reviews { get; set; }

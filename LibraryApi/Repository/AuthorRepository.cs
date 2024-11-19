@@ -34,7 +34,7 @@ public class AuthorRepository (ApplicationDbContext context) : IAuthorRepository
             return null;
         }
         
-        authorModel.OLAuthorKey = updateDto.OLAuthorKey;
+        authorModel.OlAuthorKey = updateDto.OLAuthorKey;
         authorModel.Pseudonym = updateDto.Pseudonym;
         authorModel.FirstName = updateDto.FirstName;
         authorModel.LastName = updateDto.LastName;

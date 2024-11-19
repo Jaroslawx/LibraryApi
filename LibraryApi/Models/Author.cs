@@ -7,12 +7,11 @@ public class Author
     [Key]
     public int Id { get; init; }
     
-    [Required]
-    public string OLAuthorKey { get; set; }
+    public string? OlAuthorKey { get; set; }
     
     [Required]
     [StringLength(50, ErrorMessage = "Pseudonym can't be longer than 50 characters.")]
-    public string Pseudonym { get; set; }
+    public string? Pseudonym { get; set; }
     
     [StringLength(100, ErrorMessage = "First name can't be longer than 100 characters.")]
     public string? FirstName { get; set; }
