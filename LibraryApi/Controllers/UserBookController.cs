@@ -7,12 +7,18 @@ namespace LibraryApi.Controllers;
 
 [Route("LibraryApi/userbook")]
 [ApiController]
-public class UserBookController(IUserBookRepository userBookRepo) : ControllerBase
+public class UserBookController : ControllerBase
 {
+    private readonly IUserBookRepository _userBookRepo;
+    public UserBookController(IUserBookRepository userBookRepo)
+    {
+        _userBookRepo = userBookRepo;
+    }
+    
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var userBooks = await userBookRepo.GetAllAsync();
+        var userBooks = await _userBookRepo.GetAllAsync();
         var userBooksDto = userBooks.Select(s => s.ToUserBookDto());
 
         return Ok(userBooksDto);
@@ -21,7 +27,7 @@ public class UserBookController(IUserBookRepository userBookRepo) : ControllerBa
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById([FromRoute] int id)
     {
-        var userBook = await userBookRepo.GetByIdAsync(id);
+        var userBook = await _userBookRepo.GetByIdAsync(id);
 
         if (userBook == null)
         {
@@ -35,7 +41,7 @@ public class UserBookController(IUserBookRepository userBookRepo) : ControllerBa
     [Route("{id}")]
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateUserBookRequestDto updateDto)
     {
-        var userBookModel = await userBookRepo.UpdateAsync(id, updateDto);
+        var userBookModel = await _userBookRepo.UpdateAsync(id, updateDto);
 
         if (userBookModel == null)
         {
@@ -49,14 +55,14 @@ public class UserBookController(IUserBookRepository userBookRepo) : ControllerBa
     [Route("{id}")]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
-        var userBook = await userBookRepo.GetByIdAsync(id);
+        var userBook = await _userBookRepo.GetByIdAsync(id);
 
         if (userBook == null)
         {
             return NotFound();
         }
 
-        await userBookRepo.DeleteAsync(id);
+        await _userBookRepo.DeleteAsync(id);
 
         return NoContent();
     }

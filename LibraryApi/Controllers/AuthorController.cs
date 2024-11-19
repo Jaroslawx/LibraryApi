@@ -9,12 +9,19 @@ namespace LibraryApi.Controllers;
 
 [Route("LibraryApi/author")]
 [ApiController]
-public class AuthorController (IAuthorRepository authorRepo) : ControllerBase
+public class AuthorController : ControllerBase
 {
+    private readonly IAuthorRepository _authorRepo;
+    public AuthorController(IAuthorRepository authorRepo)
+    {
+        _authorRepo = authorRepo;
+    }
+        
+    
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var authors = await authorRepo.GetAllAsync();
+        var authors = await _authorRepo.GetAllAsync();
         var authorsDto = authors.Select(s => s.ToAuthorDto());
 
         return Ok(authorsDto);
@@ -23,7 +30,7 @@ public class AuthorController (IAuthorRepository authorRepo) : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById([FromRoute] int id)
     {
-        var author = await authorRepo.GetByIdAsync(id);
+        var author = await _authorRepo.GetByIdAsync(id);
 
         if (author == null)
         {
@@ -37,7 +44,7 @@ public class AuthorController (IAuthorRepository authorRepo) : ControllerBase
     public async Task<IActionResult> Create([FromBody] CreateAuthorDto authorDto)
     {
         var authorModel = authorDto.ToAuthorFromCreate();
-        await authorRepo.CreateAsync(authorModel);
+        await _authorRepo.CreateAsync(authorModel);
         
         return CreatedAtAction(nameof(GetById), new { id = authorModel.Id }, authorModel.ToAuthorDto());
     }
@@ -46,7 +53,7 @@ public class AuthorController (IAuthorRepository authorRepo) : ControllerBase
     [Route("{id}")]
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateAuthorRequestDto updateDto)
     {
-        var authorModel = await authorRepo.UpdateAsync(id, updateDto);
+        var authorModel = await _authorRepo.UpdateAsync(id, updateDto);
 
         if (authorModel == null)
         {
@@ -60,14 +67,14 @@ public class AuthorController (IAuthorRepository authorRepo) : ControllerBase
     [Route("{id}")]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
-        var authorModel = await authorRepo.GetByIdAsync(id);
+        var authorModel = await _authorRepo.GetByIdAsync(id);
 
         if (authorModel == null)
         {
             return NotFound();
         }
         
-        await authorRepo.DeleteAsync(id);
+        await _authorRepo.DeleteAsync(id);
 
         return NoContent();
     }

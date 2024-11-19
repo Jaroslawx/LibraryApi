@@ -8,12 +8,18 @@ namespace LibraryApi.Controllers;
 
 [Route("LibraryApi/book")]
 [ApiController]
-public class BookController(IBookRepository bookRepo) : ControllerBase
+public class BookController : ControllerBase
 {
+    private readonly IBookRepository _bookRepo;
+    public BookController(IBookRepository bookRepo)
+    {
+        _bookRepo = bookRepo;
+    }
+    
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var books = await bookRepo.GetAllAsync();
+        var books = await _bookRepo.GetAllAsync();
         var booksDto = books.Select(s => s.ToBookDto());
 
         return Ok(booksDto);
@@ -22,7 +28,7 @@ public class BookController(IBookRepository bookRepo) : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById([FromRoute] int id)
     {
-        var book = await bookRepo.GetByIdAsync(id);
+        var book = await _bookRepo.GetByIdAsync(id);
 
         if (book == null)
         {
@@ -36,7 +42,7 @@ public class BookController(IBookRepository bookRepo) : ControllerBase
     public async Task<IActionResult> Create([FromBody] CreateBookDto bookDto)
     {
         var bookModel = bookDto.ToBookFromCreate();
-        await bookRepo.CreateAsync(bookModel);
+        await _bookRepo.CreateAsync(bookModel);
         
         return CreatedAtAction(nameof(GetById), new { id = bookModel.Id }, bookModel.ToBookDto());
     }
@@ -45,7 +51,7 @@ public class BookController(IBookRepository bookRepo) : ControllerBase
     [Route("{id}")]
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateBookRequestDto updateDto)
     {
-        var bookModel = await bookRepo.UpdateAsync(id, updateDto);
+        var bookModel = await _bookRepo.UpdateAsync(id, updateDto);
 
         if (bookModel == null)
         {
@@ -59,14 +65,14 @@ public class BookController(IBookRepository bookRepo) : ControllerBase
     [Route("{id}")]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
-        var bookModel = await bookRepo.GetByIdAsync(id);
+        var bookModel = await _bookRepo.GetByIdAsync(id);
 
         if (bookModel == null)
         {
             return NotFound();
         }
 
-        await bookRepo.DeleteAsync(id);
+        await _bookRepo.DeleteAsync(id);
 
         return NoContent();
     }
@@ -75,7 +81,7 @@ public class BookController(IBookRepository bookRepo) : ControllerBase
     [Route("{id}")]
     public async Task<IActionResult> AddToBookshelf([FromRoute] int id, [FromBody] AddToBookshelfRequestDto requestDto)
     {
-        var bookModel = await bookRepo.AddToBookshelfAsync(id, requestDto);
+        var bookModel = await _bookRepo.AddToBookshelfAsync(id, requestDto);
 
         if (bookModel == null)
         {
