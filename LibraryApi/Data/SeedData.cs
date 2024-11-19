@@ -20,7 +20,6 @@ namespace LibraryApi.Data
             // Create example authors
             var author1 = new Author
             {
-                OLAuthorKey = "author1",
                 Pseudonym = "J.K. Rowling",
                 FirstName = "Joanne",
                 LastName = "Rowling",
@@ -30,7 +29,6 @@ namespace LibraryApi.Data
 
             var author2 = new Author
             {
-                OLAuthorKey = "author2",
                 Pseudonym = "George R. R. Martin",
                 FirstName = "George",
                 LastName = "Martin",
@@ -44,7 +42,6 @@ namespace LibraryApi.Data
             // Create example books
             var book1 = new Book
             {
-                OLBookKey = "book1",
                 Title = "Harry Potter and the Sorcerer's Stone",
                 Subjects = new string[] { "Fantasy", "Adventure", "Magic" },
                 PublishedDate = new DateTime(1997, 6, 26),
@@ -54,7 +51,6 @@ namespace LibraryApi.Data
 
             var book2 = new Book
             {
-                OLBookKey = "book2",
                 Title = "A Game of Thrones",
                 Subjects = new string[] { "Fantasy", "Epic", "Drama" },
                 PublishedDate = new DateTime(1996, 8, 6),
