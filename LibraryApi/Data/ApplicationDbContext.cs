@@ -33,6 +33,6 @@ public class ApplicationDbContext : DbContext
         
         modelBuilder.Entity<Book>()
             .Property(b => b.AverageRating)
-            .HasPrecision(2, 2);
+            .HasPrecision(4, 2);
     }
 }

@@ -9,7 +9,6 @@ public class Author
     
     public string? OlAuthorKey { get; set; }
     
-    [Required]
     [StringLength(50, ErrorMessage = "Pseudonym can't be longer than 50 characters.")]
     public string? Pseudonym { get; set; }
     

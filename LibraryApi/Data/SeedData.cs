@@ -17,7 +17,6 @@ namespace LibraryApi.Data
                 return; // If there is already data, we stop
             }
             
-            // Create example authors
             var author1 = new Author
             {
                 Pseudonym = "J.K. Rowling",
@@ -26,7 +25,6 @@ namespace LibraryApi.Data
                 BirthDate = new DateTime(1965, 7, 31),
                 Biography = "J.K. Rowling is a British author, best known for writing the Harry Potter series."
             };
-
             var author2 = new Author
             {
                 Pseudonym = "George R. R. Martin",
@@ -38,8 +36,7 @@ namespace LibraryApi.Data
 
             context.Authors.AddRange(author1, author2);
             context.SaveChanges();
-
-            // Create example books
+            
             var book1 = new Book
             {
                 Title = "Harry Potter and the Sorcerer's Stone",
@@ -48,7 +45,6 @@ namespace LibraryApi.Data
                 Description = "The first book in the Harry Potter series, following the journey of a young wizard.",
                 AuthorId = author1.Id
             };
-
             var book2 = new Book
             {
                 Title = "A Game of Thrones",
