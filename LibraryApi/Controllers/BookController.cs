@@ -1,5 +1,6 @@
 ﻿using LibraryApi.Data;
 using LibraryApi.Dtos.Book;
+using LibraryApi.Helpers;
 using LibraryApi.Interfaces;
 using LibraryApi.Mappers;
 using Microsoft.AspNetCore.Mvc;
@@ -17,9 +18,15 @@ public class BookController : ControllerBase
     }
     
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll([FromQuery] QueryObject query)
     {
-        var books = await _bookRepo.GetAllAsync();
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        
+        var books = await _bookRepo.GetAllAsync(query);
+        
         var booksDto = books.Select(s => s.ToBookDto());
 
         return Ok(booksDto);

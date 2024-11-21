@@ -1,33 +1,53 @@
 ﻿using LibraryApi.Data;
 using LibraryApi.Dtos.Book;
+using LibraryApi.Helpers;
 using LibraryApi.Interfaces;
 using LibraryApi.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibraryApi.Repository;
 
-public class BookRepository (ApplicationDbContext context) : IBookRepository
+public class BookRepository : IBookRepository
 {
-    public async Task<List<Book>> GetAllAsync()
+    private readonly ApplicationDbContext _context;
+    public BookRepository(ApplicationDbContext context)
     {
-        return await context.Books.Include(r => r.Reviews).ToListAsync();
+        _context = context;
+    }
+    
+    public async Task<List<Book>> GetAllAsync(QueryObject query)
+    {
+        var books = _context.Books.Include(r => r.Reviews).AsQueryable();
+        
+        if (!string.IsNullOrWhiteSpace(query.Title))
+        {
+            books = books.Where(b => b.Title.Contains(query.Title));
+        }
+        
+        if(!string.IsNullOrWhiteSpace(query.Author))
+        {
+            books = books.Where(b => b.Author.Pseudonym.Contains(query.Author));
+        }
+
+        return await books.ToListAsync();
     }
 
     public async Task<Book?> GetByIdAsync(int id)
     {
-        return await context.Books.Include(r => r.Reviews).FirstOrDefaultAsync(i => i.Id == id);
+        return await _context.Books.Include(r => r.Reviews).FirstOrDefaultAsync(i => i.Id == id);
     }
 
     public async Task<Book> CreateAsync(Book book)
     {
-        await context.Books.AddAsync(book);
-        await context.SaveChangesAsync();
+        await _context.Books.AddAsync(book);
+        await _context.SaveChangesAsync();
         return book;
     }
 
     public async Task<Book?> UpdateAsync(int id, UpdateBookRequestDto updateDto)
     {
-        var bookModel = await context.Books.FirstOrDefaultAsync(x => x.Id == id);
+        var bookModel = await _context.Books.FirstOrDefaultAsync(x => x.Id == id);
         
         if(bookModel == null)
         {
@@ -41,28 +61,28 @@ public class BookRepository (ApplicationDbContext context) : IBookRepository
         bookModel.Description = updateDto.Description;
         bookModel.AuthorId = updateDto.AuthorId;
         
-        await context.SaveChangesAsync();
+        await _context.SaveChangesAsync();
         
         return bookModel;
     }
 
     public async Task<Book?> DeleteAsync(int id)
     {
-        var bookModel = await context.Books.FirstOrDefaultAsync(x => x.Id == id);
+        var bookModel = await _context.Books.FirstOrDefaultAsync(x => x.Id == id);
         
         if(bookModel == null)
         {
             return null;
         }
         
-        context.Books.Remove(bookModel);
-        await context.SaveChangesAsync();
+        _context.Books.Remove(bookModel);
+        await _context.SaveChangesAsync();
         return bookModel;
     }
     
     public async Task<Book?> AddToBookshelfAsync(int id, AddToBookshelfRequestDto addToBookshelfRequestDto)
     {
-        var bookModel = await context.Books.FirstOrDefaultAsync(x => x.Id == id);
+        var bookModel = await _context.Books.FirstOrDefaultAsync(x => x.Id == id);
         
         if(bookModel == null)
         {
@@ -78,14 +98,14 @@ public class BookRepository (ApplicationDbContext context) : IBookRepository
             LastUpdated = DateTime.Now
         };
         
-        await context.UserBooks.AddAsync(userBook);
-        await context.SaveChangesAsync();
+        await _context.UserBooks.AddAsync(userBook);
+        await _context.SaveChangesAsync();
         
         return bookModel;
     }
 
     public async Task<bool> BookExistsAsync(int id)
     {
-        return await context.Books.AnyAsync(b => b.Id == id);
+        return await _context.Books.AnyAsync(b => b.Id == id);
     }
 }
