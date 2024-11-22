@@ -22,6 +22,7 @@ public class AuthorController : ControllerBase
     public async Task<IActionResult> GetAll()
     {
         var authors = await _authorRepo.GetAllAsync();
+        
         var authorsDto = authors.Select(s => s.ToAuthorDto());
 
         return Ok(authorsDto);

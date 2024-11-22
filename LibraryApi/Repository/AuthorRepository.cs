@@ -10,7 +10,7 @@ public class AuthorRepository (ApplicationDbContext context) : IAuthorRepository
 {
     public async Task<List<Author>> GetAllAsync()
     {
-        return await context.Authors.ToListAsync();
+        return await context.Authors.Include(b => b.Books).ToListAsync();
     }
 
     public async Task<Author?> GetByIdAsync(int id)

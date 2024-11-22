@@ -1,4 +1,6 @@
-﻿namespace LibraryApi.Dtos.Author;
+﻿using LibraryApi.Dtos.Book;
+
+namespace LibraryApi.Dtos.Author;
 
 public class AuthorDto
 {
@@ -9,5 +11,5 @@ public class AuthorDto
     public string? LastName { get; set; }
     public DateTime? BirthDate { get; set; }
     public string? Biography { get; set; }
-    public ICollection<Models.Book>? Books { get; set; }
+    public ICollection<BookDto>? Books { get; set; }
 }

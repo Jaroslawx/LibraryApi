@@ -1,4 +1,5 @@
 ﻿using LibraryApi.Dtos.Author;
+using LibraryApi.Dtos.Book;
 using LibraryApi.Models;
 
 namespace LibraryApi.Mappers;
@@ -16,7 +17,7 @@ public static class AuthorMappers
             LastName = author.LastName,
             BirthDate = author.BirthDate,
             Biography = author.Biography,
-            Books = author.Books
+            Books = author.Books?.Select(b => b.ToBookDto()).ToList() ?? new List<BookDto>()
         };
     }
     
