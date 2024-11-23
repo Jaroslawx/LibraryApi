@@ -11,5 +11,5 @@ public class AuthorDto
     public string? LastName { get; set; }
     public DateTime? BirthDate { get; set; }
     public string? Biography { get; set; }
-    public ICollection<BookDto>? Books { get; set; }
+    public ICollection<AuthorBookDto>? AuthorBooks { get; set; }
 }

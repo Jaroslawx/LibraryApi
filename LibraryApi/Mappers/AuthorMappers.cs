@@ -17,7 +17,7 @@ public static class AuthorMappers
             LastName = author.LastName,
             BirthDate = author.BirthDate,
             Biography = author.Biography,
-            Books = author.Books?.Select(b => b.ToBookDto()).ToList() ?? new List<BookDto>()
+            AuthorBooks = author.Books?.Select(b => b.ToAuthorBookDto()).ToList() ?? new List<AuthorBookDto>()
         };
     }
     

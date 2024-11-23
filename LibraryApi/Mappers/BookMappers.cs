@@ -21,6 +21,19 @@ public static class BookMappers
         };
     }
     
+    public static AuthorBookDto ToAuthorBookDto(this Book authorBookDtoModel)
+    {
+        return new AuthorBookDto
+        {
+            Id = authorBookDtoModel.Id,
+            Title = authorBookDtoModel.Title,
+            Subjects = authorBookDtoModel.Subjects,
+            PublishedDate = authorBookDtoModel.PublishedDate,
+            Description = authorBookDtoModel.Description,
+            AuthorId = authorBookDtoModel.AuthorId,
+        };
+    }
+    
     public static Book ToBookFromCreate (this CreateBookDto bookDto)
     {
         return new Book
