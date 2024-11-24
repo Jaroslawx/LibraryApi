@@ -7,5 +7,4 @@ public class AuthorBookDto
     public string[]? Subjects { get; set; }
     public DateTime? PublishedDate { get; set; }
     public string? Description { get; set; }
-    public int? AuthorId { get; set; }
 }

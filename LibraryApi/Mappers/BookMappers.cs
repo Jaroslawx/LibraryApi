@@ -30,7 +30,6 @@ public static class BookMappers
             Subjects = authorBookDtoModel.Subjects,
             PublishedDate = authorBookDtoModel.PublishedDate,
             Description = authorBookDtoModel.Description,
-            AuthorId = authorBookDtoModel.AuthorId,
         };
     }
     
